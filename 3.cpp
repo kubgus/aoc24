@@ -1,9 +1,24 @@
 #include <cctype>
 #include <cstdint>
+#include <fstream>
 #include <iostream>
 #include <string>
 
-#include "util.hpp"
+std::string readfile(std::string filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "could not open file " << filename << std::endl;
+        return "error";
+    }
+
+    std::string buffer, result;
+    while (std::getline(file, buffer)) {
+        result += buffer;
+    }
+
+    file.close();
+    return result;
+}
 
 inline int num_at(uint32_t& i, std::string& input) {
     std::string buf;
